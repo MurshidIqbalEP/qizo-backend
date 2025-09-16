@@ -2,17 +2,24 @@ import express, { Application, Request, Response } from "express";
 import connectDB from "./db";
 import dotenv from "dotenv";
 dotenv.config();
+import cors from "cors";
+import roomRoutes from "./routes/roomRoutes";
 
 const app: Application = express();
 const PORT = 5000;
 
 // Middleware
 app.use(express.json());
+app.use(
+  cors({
+    origin: process.env.CORS_URL, 
+    methods: "GET,POST,PUT,PATCH,DELETE", 
+    credentials: true, 
+    allowedHeaders: ["Content-Type", "Authorization"], 
+  })
+);
 
-// Routes
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello from Express + TypeScript 🚀");
-});
+app.use('/api/room',roomRoutes)
 
 // Start server
 app.listen(PORT, async() => {
