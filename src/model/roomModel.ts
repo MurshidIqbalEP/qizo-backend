@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { IRoom } from "../lib/types";
 
 
+
 const roomSchema: Schema = new Schema(
   {
     roomName: {
@@ -28,6 +29,13 @@ const roomSchema: Schema = new Schema(
       type: String,
       required: true,
     },
+    joinedUsers: [
+      {
+        userId: { type: String, required: true, },
+        name: { type: String, required: true },
+        joinedAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true } 
 );
